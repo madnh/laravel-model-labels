@@ -1,0 +1,32 @@
+{
+  "name": "madnh/laravel-model-labels",
+  "description": "Support get label of model's fields, from model::$labels property or Laravel's localization features",
+  "keywords": [
+    "laravel",
+    "laravel 5",
+    "model",
+    "fields",
+    "label",
+    "localization"
+  ],
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "MaDnh",
+      "email": "dodanhmanh@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "MaDnh\\LaravelModelLabels\\": "src/"
+    }
+  },
+  "config": {
+    "preferred-install": "dist"
+  },
+  "minimum-stability": "dev"
+}
