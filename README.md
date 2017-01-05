@@ -22,6 +22,9 @@ class Country extends Model
 ```
 
 ## Usage
+### Label priority
+
+Model cache > Laravel i18n > Model `static::$labels`
 
 ### Define labels
 
