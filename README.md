@@ -21,6 +21,46 @@ class Country extends Model
    //Model contents...
 ```
 
+## Properties
+
+1. **`static::$label_path`**
+
+Prefix of locale path, default is `model_<model_name_in_snake_case>`. Example:
+
+```php
+public static $label_path = 'flag'; //Default is model_flag
+```
+2. **`static::$labels`**
+
+Model labels. Array of properties name (as keys) and labels (as value)
+
+Example:
+```php
+public static $labels = [
+    'id' => 'ID',
+    'full_name' => 'Họ và tên'
+];
+```
+
+3. **`static::$labels_trans_map`**
+
+Label trans map, use when can't find label of a property in label cached, locale, static $labels.
+
+If the property is not defined in this array, will use the auto convert function - which try to get the label in title case of lower cased property name: id => Id .
+
+Special useful for acronym words like ID, VIP, CMND,..
+
+Example: 
+```php
+public static $labels_trans_map = ['id' => 'ID']; //Auto convert label is Id 
+```
+     
+4. **`static::$label_cached`**
+
+Cached labels. Priority is highest.
+
+
+
 ## Usage
 ### Label priority
 
@@ -66,6 +106,8 @@ return [
 ```
 
 ## Get labels
+
+Use following methods to get labels
 
 | **Method**                | **Example**                                          | **Description**             |
 |---------------------------|------------------------------------------------------|-----------------------------|

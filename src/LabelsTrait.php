@@ -3,6 +3,23 @@ namespace MaDnh\LaravelModelLabels;
 
 trait LabelsTrait
 {
+    /*
+     * Prefix of locale path
+     * Default is model_<class_name>
+     * public static $label_path = null;
+     */
+    /*
+     * Model labels
+     * public static $labels = ['full_name' => 'Họ và tên']
+     */
+    /*
+     * Label trans map, use when can't find label of a property in label cached, locale, static $labels.
+     * If the property is not defined in this array, will use the manual convert function - which try to get the label in title case of lower cased property name: id => Id .
+     * Special useful for acronym words like ID, VIP, CMND,..
+     * Example: id => ID
+     * public static $labels_trans_map = ['id' => 'ID'];
+     */
+
     protected static $labels_trans_map = [
         'id' => 'ID'
     ];
@@ -13,6 +30,7 @@ trait LabelsTrait
         if (array_key_exists($field, static::$label_cached)) {
             return static::$label_cached[$field];
         }
+
         $label_i18n_path = self::getLabelI18nPath('field.' . $field);
         $trans_result = trans($label_i18n_path);
 
@@ -27,7 +45,7 @@ trait LabelsTrait
             if (array_key_exists($field_lower, static::$labels_trans_map)) {
                 $label = static::$labels_trans_map[$field_lower];
             } else {
-                $label = static::makeLabelManual($field);
+                $label = static::getAutoConvertLabel($field);
             }
         }
 
@@ -40,7 +58,7 @@ trait LabelsTrait
      * @param string $field
      * @return string
      */
-    protected static function makeLabelManual($field)
+    protected static function getAutoConvertLabel($field)
     {
         return title_case(str_replace('_', ' ', strtolower($field)));
     }
@@ -84,7 +102,7 @@ trait LabelsTrait
         if (is_array($fields)) {
             foreach ($fields as $field) {
                 if (array_key_exists($field, $result)) {
-                    $result[$field] = static::makeLabelManual($field);
+                    $result[$field] = static::getAutoConvertLabel($field);
                 }
             }
         }
@@ -100,7 +118,12 @@ trait LabelsTrait
 
     protected static function getLabelI18nPath($sub_path = null)
     {
-        $path = 'model_' . snake_case(class_basename(static::class));
+        if (property_exists(static::class, 'label_path')) {
+            $path = static::$label_path;
+        }
+        if (empty($path)) {
+            $path = 'model_' . snake_case(class_basename(static::class));
+        }
 
         if ($sub_path) {
             $path .= '.' . $sub_path;
