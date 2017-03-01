@@ -132,7 +132,7 @@ trait LabelsTrait
         return $path;
     }
 
-    public static function getModelLabel()
+    public static function modelLabel()
     {
         $class_basename = class_basename(static::class);
         $trans = 'model_' . strtolower($class_basename) . '.model';
