@@ -111,6 +111,7 @@ Use following methods to get labels
 
 | **Method**                | **Example**                                          | **Description**             |
 |---------------------------|------------------------------------------------------|-----------------------------|
+| **modelLabel()**          | `Country::modelLabel()`                              | Get label of model class    |
 | **labels()**              | `Country::labels()`                                  | Get all of lables of fields |
 | **labels(<fields name>)** | `Country::labels('name', 'flag', 'code', ['title'])` | Get label of fields         |
 | **label(<field name>)**   | `Country::label('name')`                             | Get label of a field        |

@@ -131,4 +131,17 @@ trait LabelsTrait
 
         return $path;
     }
+
+    public static function getModelLabel()
+    {
+        $class_basename = class_basename(static::class);
+        $trans = 'model_' . strtolower($class_basename) . '.model';
+        $label = trans($trans);
+
+        if (is_string($label) && $trans !== $label) {
+            return $label;
+        }
+
+        return title_case($class_basename);
+    }
 }
